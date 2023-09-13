@@ -5,6 +5,7 @@ import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement } f
 import Dashboard from "./components/Dashboard";
 import { useRoutes } from "react-router-dom";
 import Posts from "./components/Posts";
+import LoginForm from "./components/LoginForm";
 // import Posts from "./components/Posts";
 
 
@@ -28,10 +29,11 @@ const App = () => {
             setRecipeList(response.data.hits)
         }).catch(() => { })
     }
-    const routes = [
+    const protectedRoutes = [
+        
         {
-            path: "/",
-            element: <Dashboard />
+            path: "/dashboard",
+            element:<Dashboard/>
         },
         {
             path: "/post",
@@ -41,7 +43,13 @@ const App = () => {
             element: <RecipeCard recipeList={recipeList} food={food} setFood={setFood} triggerAPI={hitAPI} />
         }
     ]
-    const renderedComponent = useRoutes(routes)
+    const openRoutes = [
+        {
+            path : "/",
+            element : <LoginForm/>
+        }
+    ]
+    const renderedComponent = useRoutes(localStorage.getItem("meroToken")?protectedRoutes:openRoutes)
 
     return (
         <>
