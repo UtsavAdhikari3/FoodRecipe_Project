@@ -27,7 +27,7 @@ const App = () => {
         axios.get(`${baseURL}/search?q=${food}&app_id=${APP_ID}&app_key=${APP_KEY}`).then((response) => {
             console.log(response)
             setRecipeList(response.data.hits)
-        }).catch(() => { })
+        }).catch((err) => console.log(err))
     }
     const protectedRoutes = [
         
