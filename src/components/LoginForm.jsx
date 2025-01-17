@@ -78,9 +78,12 @@ const schema = yup.object().shape({
         >
           <Image
             mx="auto"
-            boxSize="100px"
-            src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg"
-            alt="Facebook Logo"
+            boxSize="120px"
+            src="../../public/logo.png"
+            alt="My Logo"
+            height="100px"
+            width="120px"
+
           />
           <Text fontSize="xl" mb={2} textAlign="center">
             Log in to our App to get into Dashboard.
