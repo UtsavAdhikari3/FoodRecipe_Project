@@ -1,74 +1,118 @@
-import React, { useEffect, useState } from 'react'
-import { basePostURL } from '../App'
-import axios from 'axios'
-import { Button, Divider, Flex, Grid, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack, useDisclosure } from '@chakra-ui/react'
-import style from "../recipe.module.css";
-import { AiOutlineEdit } from "react-icons/ai"
-import { RiDeleteBin6Fill } from "react-icons/ri"
-const Posts
-    = () => {
-        // basePostURL
-        const [users, setUsers] = useState([])
-        const [deleteId,setDeleteId] = useState()
-        const { isOpen, onOpen, onClose } = useDisclosure()
-  
-        const deleteUser = ()=>{
-          axios.delete(`${basePostURL}/posts/${deleteId}`).then(
-            (res)=>{
-              console.log(res)
-              onClose()
-            }
-          ).catch((err)=>console.log(err,"-------->"))
+import React, { useEffect, useState } from "react";
+import { basePostURL } from "../App";
+import axios from "axios";
+import {
+  Button,
+  Flex,
+  Grid,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  VStack,
+  Box,
+  IconButton,
+  useDisclosure,
+  Heading,
+} from "@chakra-ui/react";
+import { AiOutlineEdit } from "react-icons/ai";
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
-        }
-        
-        useEffect(() => {
-          axios.get(`${basePostURL}/posts`).then(
-              (res) => setUsers(res.data)
-          ).catch((err) => console.log(err, "---->err"))
-      }, [])
-   return(
-    <div>
-    <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-        {users.map((user) => {
-            return (
+const Posts = () => {
+  const [users, setUsers] = useState([]);
+  const [deleteId, setDeleteId] = useState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-                <div key={user.id} className={style.recipe} style={{ marginBottom: "8px" }}>
+  const deleteUser = () => {
+    axios
+      .delete(`${basePostURL}/posts/${deleteId}`)
+      .then((res) => {
+        console.log(res);
+        setUsers(users.filter((user) => user.id !== deleteId)); // Update UI after deletion
+        onClose();
+      })
+      .catch((err) => console.log(err, "-------->"));
+  };
 
-                    <VStack gap={16} px={8}>
-                        <Text >{user.id}</Text>
-                        <Text >{user.title}</Text>
-                        <Text>{user.body}</Text>
-                    </VStack>
-                    <Flex sx={{ justifyContent: "flex-end", width: "100%", paddingRight: "8px", columnGap: "8px" }}>
-                        <AiOutlineEdit />
-                        <RiDeleteBin6Fill onClick={()=>{
-                          setDeleteId(user.id)
-                          onOpen()
-                        }} />
-                    </Flex>
-                    {/* <Divider borderColor={"black"} /> */}
-                </div>
-            )
-        }
-        )}
-    </Grid>
-    <Modal isOpen={isOpen} onClose={onClose}>
+  useEffect(() => {
+    axios
+      .get(`${basePostURL}/posts`)
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.log(err, "---->err"));
+  }, []);
+
+  return (
+    <Box p={6} bg="gray.50" minH="100vh">
+      <Heading as="h1" size="lg" textAlign="center" mb={6}>
+        Posts Management
+      </Heading>
+      <Grid templateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={6}>
+        {users.map((user) => (
+          <Box
+            key={user.id}
+            bg="white"
+            borderRadius="lg"
+            boxShadow="md"
+            p={4}
+            transition="transform 0.2s"
+            _hover={{ transform: "scale(1.02)" }}
+          >
+            <VStack align="start" spacing={3}>
+              <Text fontWeight="bold" fontSize="lg">
+                {user.title}
+              </Text>
+              <Text fontSize="sm" color="gray.600">
+                {user.body}
+              </Text>
+            </VStack>
+            <Flex justifyContent="flex-end" mt={4}>
+              <IconButton
+                aria-label="Edit Post"
+                icon={<AiOutlineEdit />}
+                size="sm"
+                colorScheme="teal"
+                variant="ghost"
+                mr={2}
+              />
+              <IconButton
+                aria-label="Delete Post"
+                icon={<RiDeleteBin6Fill />}
+                size="sm"
+                colorScheme="red"
+                variant="ghost"
+                onClick={() => {
+                  setDeleteId(user.id);
+                  onOpen();
+                }}
+              />
+            </Flex>
+          </Box>
+        ))}
+      </Grid>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-            <ModalHeader>Are you sure you want to delete this user?</ModalHeader>
-            <ModalCloseButton />
-            <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                </Button>
-                <Button variant='ghost' onClick={()=>{deleteUser()}}>Delete</Button>
-            </ModalFooter>
+          <ModalHeader>Confirm Deletion</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>Are you sure you want to delete this post?</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="red" onClick={deleteUser}>
+              Delete
+            </Button>
+          </ModalFooter>
         </ModalContent>
-    </Modal>
+      </Modal>
+    </Box>
+  );
+};
 
-</div >
-   )
-    }
-
-export default Posts
+export default Posts;
