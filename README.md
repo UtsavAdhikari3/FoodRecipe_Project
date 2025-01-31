@@ -14,4 +14,4 @@ Please use:
 email: john@mail.com
 password: changeme
 
-Use this link to access the Website : https://golden-bunny-c511d3.netlify.app/
+Use this link to access the Website : https://food-recipe-project-m1qtkll8o-utsavadhikari3s-projects.vercel.app/
