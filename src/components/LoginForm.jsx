@@ -80,7 +80,7 @@ function LoginForm() {
         <form onSubmit={handleSubmit(loginFormSubmit)}>
           <VStack spacing={4} align="stretch">
             <FormControl id="email" isInvalid={!!errors.email}>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>Email Address "Hint: Check ReadMe"</FormLabel>
               <Input
                 type="email"
                 placeholder="example@mail.com"

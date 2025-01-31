@@ -9,7 +9,7 @@ const LandingPage = () => {
       {/* Navbar */}
       <Flex as="nav" bg="teal.500" color="white" p={4} justify="space-between" align="center">
         <Heading size="lg">Recipe Book</Heading>
-        <Button colorScheme="blue" variant="outline" onClick={() => navigate('/login')}>Sign In</Button>
+        <Button color="white" variant="outline" onClick={() => navigate('/login')}>Sign In</Button>
       </Flex>
 
       <VStack spacing={6} textAlign="center" mt={10} p={5}>
