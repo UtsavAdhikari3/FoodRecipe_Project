@@ -93,7 +93,7 @@ function LoginForm() {
               )}
             </FormControl>
             <FormControl id="password" isInvalid={!!errors.password}>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Password "Hint: Check ReadMe"</FormLabel>
               <Input
                 type="password"
                 placeholder="Enter your password"
