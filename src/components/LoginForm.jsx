@@ -67,7 +67,7 @@ function LoginForm() {
         <Image
           mx="auto"
           boxSize="120px"
-          src="logo.png"
+          src="logo2.jpg"
           alt="My Logo"
           mb={4}
         />
@@ -75,7 +75,7 @@ function LoginForm() {
           Welcome Back
         </Text>
         <Text fontSize="md" color="gray.600" mb={6}>
-          Log in to access your dashboard
+          Log in to access your dashboard "Navigate to Github ReadMe to see the credentials"
         </Text>
         <form onSubmit={handleSubmit(loginFormSubmit)}>
           <VStack spacing={4} align="stretch">

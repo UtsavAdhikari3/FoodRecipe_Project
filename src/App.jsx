@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import { useRoutes } from "react-router-dom";
 import Posts from "./components/Posts";
 import LoginForm from "./components/LoginForm";
+import LandingPage from "./components/LandingPage";
 // import Posts from "./components/Posts";
 
 
@@ -45,7 +46,11 @@ const App = () => {
     ]
     const openRoutes = [
         {
-            path : "/",
+            path:"/",
+            element:<LandingPage/>
+        },
+        {
+            path : "/login",
             element : <LoginForm/>
         }
     ]
